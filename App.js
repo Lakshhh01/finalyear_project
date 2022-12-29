@@ -9,7 +9,7 @@ import{create as IPFSHTTPClient} from 'ipfs-http-client';
 //Declare IPFS
 //const ipfsClient = require('ipfs-http-client')
 import ipfsClient  from 'ipfs-http-client'
-const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' })
+const ipfs = ipfsClient({ host: 'https://dropstore.infura-ipfs.io', port: 5001, protocol: 'https' })
  const projectId = '2JX2tj4qGIN0cBMOnUZxOWX2GrT';
  const projectSecret = 'b15e378d90583ae9d86edd8117f17326';
  const auth = 'Basic' + Buffer.from(projectId + ":" + projectSecret).toString('base64');
