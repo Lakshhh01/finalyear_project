@@ -3,13 +3,9 @@ import React, { Component } from 'react';
 import Navbar from './Navbar'
 import Main from './Main'
 import Web3 from 'web3';
-
 import './App.css';
-import{create as IPFSHTTPClient} from 'ipfs-http-client';
-
 
 //Declare IPFS
-//const ipfsClient = require('ipfs-http-client')
 import create from "ipfs-http-client"
 async function ipfsClient() {
   const ipfs = await create(
@@ -22,7 +18,7 @@ async function ipfsClient() {
   return ipfs;
 }
 // const ipfs = create({ host: '127.0.0.1', port: 5001, protocol: 'http' })
-const ipfs = create({ host: 'https://dropstore.infura-ipfs.io', port: 5001, protocol: 'https' })
+// const ipfs = create({ host: 'https://dropstore.infura-ipfs.io', port: 5001, protocol: 'https' })
  const projectId = '2JX2tj4qGIN0cBMOnUZxOWX2GrT';
  const projectSecret = 'b15e378d90583ae9d86edd8117f17326';
  const auth = 'Basic' + Buffer.from(projectId + ":" + projectSecret).toString('base64');
@@ -115,15 +111,19 @@ class App extends Component {
     const file = event.target.files[0]
     const reader = new window.FileReader()
     console.log(file)
-    reader.readAsArrayBuffer(file)
-    reader.onloadend = () => {
-      this.setState({
-        buffer: Buffer(reader.result),
-        type: file.type,
-        name: file.name
-      })
-      console.log('buffer', this.state.buffer)
-    }
+    // reader.readAsArrayBuffer(file)
+    // reader.onloadend = () => {
+    //   this.setState({
+    //     buffer: Buffer(reader.result),
+    //     type: file.type,
+    //     name: file.name
+    //   })
+    //   console.log('buffer', this.state.buffer)
+    // }
+    this.setState({
+      type: file.type,
+      name: file.name
+    })
   }
 
 
@@ -135,8 +135,10 @@ class App extends Component {
     // const result = await ipfs.add(file);
     // console.log('IPFS result',result);
     let ipfs = await ipfsClient();
-    const result = await ipfs.add(this.state.buffer, (error,result) => {
+    console.log(this.state);
+    const result = await ipfs.add(this.state.name, (result, error) => {
       console.log('ipfs result',result);
+      console.log("ipfs result", error);
     })
     // console.log(output);
   }
