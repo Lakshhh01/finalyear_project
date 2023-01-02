@@ -111,15 +111,15 @@ class App extends Component {
     const file = event.target.files[0]
     const reader = new window.FileReader()
     console.log(file)
-    // reader.readAsArrayBuffer(file)
-    // reader.onloadend = () => {
-    //   this.setState({
-    //     buffer: Buffer(reader.result),
-    //     type: file.type,
-    //     name: file.name
-    //   })
-    //   console.log('buffer', this.state.buffer)
-    // }
+    reader.readAsArrayBuffer(file)
+    reader.onloadend = () => {
+      this.setState({
+        buffer: Buffer(reader.result),
+        type: file.type,
+        name: file.name
+      })
+      console.log('buffer', this.state.buffer)
+    }
     this.setState({
       type: file.type,
       name: file.name
