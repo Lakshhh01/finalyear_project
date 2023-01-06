@@ -84,27 +84,32 @@ class App extends Component {
 
     ipfs.add(this.state.buffer, (error, result) => {
       console.log('IPFS result', result)
+      console.log('files ' + this.state.files);
       if (error) {
         console.error(error)
         return
       }
 
-      // this.setState({ loading: true })
+      this.setState({ loading: true })
 
-      // if (this.state.type === '') {
-      //   this.setState({ type: 'none' })
+      if (this.state.type === '') {
+        this.setState({ type: 'none' })
+      }
+      // if(this.state.dstorage == undefined)
+      // {
+      //   return
       // }
-      // this.state.dstorage.methods.uploadFile(result[0].hash, result[0].size, this.state.type, this.state.name, description).send({ from: this.state.account }).on('transactionHash', (hash) => {
-      //   this.setState({
-      //     loading: false,
-      //     type: null,
-      //     name: null
-      //   })
-      //   window.location.reload()
-      // }).on('error', (e) => {
-      //   window.alert('Error')
-      //   this.setState({ loading: false })
-      // })
+      this.state.dstorage.methods.uploadFile(result[0].hash, result[0].size, this.state.type, this.state.name, description).send({ from: this.state.account }).on('transactionHash', (hash) => {
+        this.setState({
+         loading: false,
+         type: null,
+         name: null
+       })
+       window.location.reload()
+      }).on('error', (e) =>{
+        window.alert('Error')
+        this.setState({loading: false})
+      })
     })
   }
 
